@@ -1,7 +1,6 @@
 package com.tienda.ejemplo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
