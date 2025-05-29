@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tienda.ejemplo.model.Cliente;
 import com.tienda.ejemplo.repository.ClienteRepository;
@@ -41,10 +42,16 @@ public class ClienteService {
             return null;
         }
 
-        return clienteRepository.save(cli);
+        rutCli.setPnombre(cli.getPnombre());
+        rutCli.setSnombre(cli.getSnombre());
+        rutCli.setAppaterno(cli.getAppaterno());
+        rutCli.setApmaterno(cli.getApmaterno());
+
+        return clienteRepository.save(rutCli);
 
     }
 
+    @Transactional
     public boolean deleteByRut(String rut) {
         Cliente rutCli = clienteRepository.findByRut(rut);
 

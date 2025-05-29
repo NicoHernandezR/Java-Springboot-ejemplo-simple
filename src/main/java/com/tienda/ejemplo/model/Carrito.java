@@ -1,5 +1,7 @@
 package com.tienda.ejemplo.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,9 @@ public class Carrito {
     private Producto producto;
 
     @Column(nullable = false)
-    private Integer total;
+    private Integer cantidad;
+
+    @Column(nullable = false)
+    private Date fecha;
 
 }
