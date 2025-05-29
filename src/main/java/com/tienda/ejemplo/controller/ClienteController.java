@@ -145,7 +145,7 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("")
+    @PutMapping()
     public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cli) {
         try {
             boolean ok = validarCliente(cli);

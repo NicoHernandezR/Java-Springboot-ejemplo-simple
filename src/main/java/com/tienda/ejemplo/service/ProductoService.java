@@ -3,6 +3,7 @@ package com.tienda.ejemplo.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tienda.ejemplo.model.Producto;
 import com.tienda.ejemplo.repository.ProductoRepository;
@@ -43,10 +44,16 @@ public class ProductoService {
             return null;
         }
 
-        return productoRepository.save(prod);
+        codProd.setCategoria(prod.getCategoria());
+        codProd.setCodigo(prod.getCodigo());
+        codProd.setNombre(prod.getNombre());
+        codProd.setPrecio(prod.getPrecio());
+
+        return productoRepository.save(codProd);
 
     }
 
+    @Transactional
     public boolean deleteByCodigo(String codigo) {
         Producto codProd = productoRepository.findByCodigo(codigo);
 
