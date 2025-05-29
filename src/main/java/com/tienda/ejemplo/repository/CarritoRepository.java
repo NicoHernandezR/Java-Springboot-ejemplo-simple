@@ -7,7 +7,7 @@ import com.tienda.ejemplo.model.Carrito;
 import com.tienda.ejemplo.model.Cliente;
 
 import java.util.List;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 
@@ -15,5 +15,5 @@ import java.util.Date;
 public interface CarritoRepository extends JpaRepository<Carrito, Long>{
 
     List<Carrito> findByCliente(Cliente cliente);
-    List<Carrito> findByClienteAndFecha(Cliente cliente, Date fecha);
+    List<Carrito> findByClienteAndFecha(Cliente cliente, LocalDate  fecha);
 }

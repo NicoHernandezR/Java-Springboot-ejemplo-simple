@@ -1,5 +1,6 @@
 package com.tienda.ejemplo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -37,6 +38,6 @@ public class Carrito {
     private Integer cantidad;
 
     @Column(nullable = false)
-    private Date fecha;
+    private LocalDate  fecha;
 
 }

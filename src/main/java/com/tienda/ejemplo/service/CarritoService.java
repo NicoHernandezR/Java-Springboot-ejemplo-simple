@@ -1,5 +1,6 @@
 package com.tienda.ejemplo.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tienda.ejemplo.model.Carrito;
 import com.tienda.ejemplo.model.Cliente;
 import com.tienda.ejemplo.model.Producto;
+import com.tienda.ejemplo.payload.ProductoCantidad;
 import com.tienda.ejemplo.repository.CarritoRepository;
 import com.tienda.ejemplo.repository.ClienteRepository;
 import com.tienda.ejemplo.repository.ProductoRepository;
@@ -37,7 +39,7 @@ public class CarritoService {
         
     }
 
-    public List<Carrito> getCarritosByClienteAndFecha(String rut, Date fecha){
+    public List<Carrito> getCarritosByClienteAndFecha(String rut, LocalDate  fecha){
         Cliente cli = clienteRepository.findByRut(rut);
 
         if (cli == null) {
@@ -49,17 +51,23 @@ public class CarritoService {
         return carritos;
     }
 
-    public Carrito insertCarrito(Carrito car, Date fecha){
-        Cliente cli = clienteRepository.findByRut(car.getCliente().getRut());
+    public Carrito insertCarrito(ProductoCantidad producto, LocalDate  fecha, String rut){
+        Cliente cli = clienteRepository.findByRut(rut);
 
         if (cli == null) {
             return null;
         }
-        Producto prod = productoRepository.findByCodigo(car.getProducto().getCodigo());
+        Producto prod = productoRepository.findByCodigo(producto.getCodigoProducto());
         if (prod == null) {
             return null;
         }
+
+        Carrito car = new Carrito();
+        car.setCantidad(producto.getCantidad());
+        car.setCliente(cli);
         car.setFecha(fecha);
+        car.setProducto(prod);
+
         return carritoRepository.save(car);
 
     }
@@ -82,7 +90,14 @@ public class CarritoService {
             return null;
         }
 
-        return carritoRepository.save(car);
+        Carrito newCar = idCar.get();
+        
+        newCar.setCantidad(car.getCantidad());
+        newCar.setCliente(cli);
+        newCar.setFecha(car.getFecha());
+        newCar.setProducto(prod);
+
+        return carritoRepository.save(newCar);
 
     }
 
