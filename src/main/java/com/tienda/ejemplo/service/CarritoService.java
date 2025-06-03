@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tienda.ejemplo.model.Carrito;
 import com.tienda.ejemplo.model.Cliente;
@@ -100,6 +101,7 @@ public class CarritoService {
 
     }
 
+    @Transactional
     public Boolean deleteCarritoById(Long id){
         Optional<Carrito> car = carritoRepository.findById(id);
 
